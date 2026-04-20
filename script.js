@@ -27,7 +27,7 @@ function findDifferences(obj1,obj2){
     for(let key in obj1){
         if(!(key in obj2)){
             differences.push(`Key "${key}" is missing in JSON 2`);
-        } else if(typeof obj1[key] === 'object' && typeof obj2[key] === 'object'){
+        } else if((typeof obj1[key] === 'object' && typeof obj2[key] === 'object') || (Array.isArray(obj1[key]) && Array.isArray(obj2[key]))){
             differences = differences.concat(findDifferences(obj1[key], obj2[key]));
         } else if(obj1[key] !== obj2[key]){
             differences.push(`Key "${key}": ${obj1[key]} vs ${obj2[key]}`);
