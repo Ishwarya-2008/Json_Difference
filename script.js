@@ -3,7 +3,7 @@ let json2 = document.getElementById('json2');
 let compareButton = document.getElementById('compare');
 let result = document.getElementById('result');
 
-compareButton.addEventListener('click',()=>{
+compareButton.addEventListener('click', () => {
     let obj1, obj2;
     try {
         obj1 = JSON.parse(json1.value);
@@ -21,21 +21,21 @@ compareButton.addEventListener('click',()=>{
     }
 })
 
-function findDifferences(obj1,obj2){
+function findDifferences(obj1, obj2) {
     let differences = [];
 
-    for(let key in obj1){
-        if(!(key in obj2)){
+    for (let key in obj1) {
+        if (!(key in obj2)) {
             differences.push(`Key "${key}" is missing in JSON 2`);
-        } else if((typeof obj1[key] === 'object' && typeof obj2[key] === 'object') || (Array.isArray(obj1[key]) && Array.isArray(obj2[key]))){
+        } else if ((typeof obj1[key] === 'object' && typeof obj2[key] === 'object') || (Array.isArray(obj1[key]) && Array.isArray(obj2[key]))) {
             differences = differences.concat(findDifferences(obj1[key], obj2[key]));
-        } else if(obj1[key] !== obj2[key]){
+        } else if (obj1[key] !== obj2[key]) {
             differences.push(`Key "${key}": ${obj1[key]} vs ${obj2[key]}`);
         }
     }
 
-    for(let key in obj2){
-        if(!(key in obj1)){
+    for (let key in obj2) {
+        if (!(key in obj1)) {
             differences.push(`Key "${key}" is missing in JSON 1`);
         }
     }
